@@ -78,4 +78,10 @@ class TestStructuredWarnings < Test::Unit::TestCase
       warn nil
     end
   end
+
+  def test_warnings_may_not_be_disabled_twice
+    assert [Warning], Warning.disable
+    assert [Warning], Warning.disable
+    assert [], Warning.enable
+  end
 end

@@ -12,11 +12,11 @@ class Warning
 
     def disable
       if block_given?
-        Dynamic.let(:disabled_warnings => disabled_warnings + [self]) do
+        Dynamic.let(:disabled_warnings => disabled_warnings | [self]) do
           yield
         end
       else
-        self.disabled_warnings += [self]
+        self.disabled_warnings |= [self]
       end
     end
 
