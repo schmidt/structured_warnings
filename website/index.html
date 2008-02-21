@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <link rel="stylesheet" href="stylesheets/screen.css" type="text/css" media="screen" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>
+      rug-b
+  </title>
+  <script src="javascripts/rounded_corners_lite.inc.js" type="text/javascript"></script>
+<style>
+
+</style>
+  <script type="text/javascript">
+    window.onload = function() {
+      settings = {
+          tl: { radius: 10 },
+          tr: { radius: 10 },
+          bl: { radius: 10 },
+          br: { radius: 10 },
+          antiAlias: true,
+          autoPad: true,
+          validTags: ["div"]
+      }
+      var versionBox = new curvyCorners(settings, document.getElementById("version"));
+      versionBox.applyCornersToAll();
+    }
+  </script>
+</head>
+<body>
+<div id="main">
+
+    <h1>rug-b</h1>
+    <div id="version" class="clickable" onclick='document.location = "http://rubyforge.org/projects/rug-b"; return false'>
+      <p>Get Version</p>
+      <a href="http://rubyforge.org/projects/rug-b" class="numbers">0.0.1</a>
+    </div>
+    <h1>&#x2192; &#8216;structured_warnings&#8217;</h1>
+
+
+	<h2>What</h2>
+
+
+This is an implementation of <a href="http://www.oreillynet.com/pub/au/2999">Daniel Berger</a> &#8217;s 
+<a href="http://www.oreillynet.com/ruby/blog/2008/02/structured_warnings_now.html">proposal of structured warnings</a>
+for Ruby. They provide dynamic suppression and activation, as well as, an 
+inheritance hierarchy to model their relations. This library preserves the old
+<code>warn</code> signature, but additionally allows a <code>raise</code>-like 
+use.
+
+	<p>For more information on the usage and benefits of this library have a look at
+the inspiring article at 
+<a href="http://www.oreillynet.com/ruby/blog/2008/02/structured_warnings_now.html">O&#8217;Reilly</a>.</p>
+
+
+	<h2>Installing</h2>
+
+
+	<p><pre class='syntax'><span class="ident">sudo</span> <span class="ident">gem</span> <span class="ident">install</span> <span class="ident">structured_warnings</span></pre></p>
+
+
+	<h2>Demonstration of usage</h2>
+
+
+	<p>To get you started &#8211; here a short extract from the article:</p>
+
+
+	<p><pre class='syntax'>
+<span class="keyword">class </span><span class="class">Foo</span>
+  <span class="keyword">def </span><span class="method">old_method</span>
+    <span class="ident">warn</span> <span class="constant">DeprecatedMethodWarning</span><span class="punct">,</span> <span class="punct">'</span><span class="string">This method is deprecated. Use new_method instead</span><span class="punct">'</span>
+    <span class="comment"># Do stuff</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+
+<span class="ident">require</span> <span class="punct">'</span><span class="string">test/unit</span><span class="punct">'</span>
+<span class="ident">require</span> <span class="punct">'</span><span class="string">structured_warnings</span><span class="punct">'</span>
+
+<span class="keyword">class </span><span class="class">FooTests</span> <span class="punct">&lt;</span> <span class="constant">Test</span><span class="punct">::</span><span class="constant">Unit</span><span class="punct">::</span><span class="constant">TestCase</span>
+  <span class="keyword">def </span><span class="method">setup</span>
+    <span class="attribute">@foo</span> <span class="punct">=</span> <span class="constant">Foo</span><span class="punct">.</span><span class="ident">new</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">def </span><span class="method">test_old_method</span>
+    <span class="ident">assert_warn</span><span class="punct">(</span><span class="constant">DeprecatedMethodWarning</span><span class="punct">){</span> <span class="attribute">@foo</span><span class="punct">.</span><span class="ident">old_method</span> <span class="punct">}</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre></p>
+
+
+	<p>[...]</p>
+
+
+	<p>So, using our hypothetical RedefinedMethodWarning class, I could disable them like so:</p>
+
+
+	<p><pre class='syntax'>
+<span class="constant">RedefinedMethodWarning</span><span class="punct">.</span><span class="ident">disable</span> <span class="comment"># No more warnings about method redefinitions!</span>
+</pre></p>
+
+
+	<p>Or, with block syntax, we could disable a particular warning temporarily:</p>
+
+
+	<p><pre class='syntax'>
+<span class="comment"># Don't bug me about deprecated method warnings within this block, I know</span>
+<span class="comment"># what I'm doing.</span>
+<span class="comment">#</span>
+<span class="constant">DeprecatedMethodWarning</span><span class="punct">.</span><span class="ident">disable</span><span class="punct">{</span>
+   <span class="punct">[</span><span class="number">1</span><span class="punct">,</span><span class="number">2</span><span class="punct">,</span><span class="number">3</span><span class="punct">,</span><span class="number">4</span><span class="punct">,</span><span class="number">5</span><span class="punct">].</span><span class="ident">indexes</span><span class="punct">(</span><span class="number">1</span><span class="punct">,</span><span class="number">3</span><span class="punct">)</span> <span class="comment"># Array#indexes is a deprecated method</span>
+<span class="punct">}</span>
+
+<span class="comment"># But here I would get a warning since it's outside the block:</span>
+<span class="punct">[</span><span class="number">1</span><span class="punct">,</span><span class="number">2</span><span class="punct">,</span><span class="number">3</span><span class="punct">,</span><span class="number">4</span><span class="punct">,</span><span class="number">5</span><span class="punct">].</span><span class="ident">indexes</span><span class="punct">(</span><span class="number">1</span><span class="punct">,</span><span class="number">3</span><span class="punct">)</span>
+</pre></p>
+
+
+	<h2>How to submit patches</h2>
+
+
+	<p>Read the <a href="http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/">8 steps for fixing other people&#8217;s code</a> and for section <a href="http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/#8z-email">8z: Email the project owner</a>, use the Email below.</p>
+
+
+	<p>The trunk repository is <code>svn://rubyforge.org/var/svn/rug-b/structured_warnings/trunk</code> for anonymous access.</p>
+
+
+	<h2>License</h2>
+
+
+	<p>This code is free to use under the terms of the <span class="caps">MIT</span> license.</p>
+
+
+	<h2>Contact</h2>
+
+
+	<p>Comments are welcome. Send an email to <a href="mailto:ruby@schmidtwisser.de">Gregor Schmidt</a></p>
+    <p class="coda">
+      <a href="mailto:ruby@schmidtwisser.de">Gregor Schmidt</a>, 21st February 2008<br>
+      Theme extended from <a href="http://rb2js.rubyforge.org/">Paul Battley</a>
+    </p>
+</div>
+
+<!-- insert site tracking codes here, like Google Urchin -->
+
+</body>
+</html>
