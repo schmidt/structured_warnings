@@ -74,7 +74,19 @@ h2. How to submit patches
 
 Read the "8 steps for fixing other people's code":http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/ and for section "8z: Email the project owner":http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/#8z-email, use the Email below.
 
-The trunk repository is <code>svn://rubyforge.org/var/svn/rug-b/structured_warnings/trunk</code> for anonymous access.
+The trunk repository is <code>http://rug-b.rubyforge.org/svn/structured_warnings/trunk</code> for anonymous access.
+
+h2. Resources
+
+* "Initial announcement":http://www.nach-vorne.de/2008/2/21/ann-structured_warnings-0-1-0-released
+* "Inspiring article":http://www.oreillynet.com/ruby/blog/2008/02/structured_warnings_now.html
+* "Project's website":http://rug-b.rubyforge.org/structured_warnings/
+* "API doc":http://rug-b.rubyforge.org/structured_warnings/rdoc
+* "rug-b":http://www.rug-b.com
+* Other rug-b gems "in SVN":http://rug-b.rubyforge.org/svn/ and 
+  "to download":http://rubyforge.org/projects/rug-b
+
+
 
 h2. License
 

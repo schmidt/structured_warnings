@@ -1,3 +1,10 @@
+== 0.1.1 2008-02-22
+
+* 1 major enhancement:
+  * Fully documented library
+* 1 minor fix
+  * Warnings can no longer be disabled twice
+
 == 0.1.0 2008-02-21
 
 * 1 major enhancement:
