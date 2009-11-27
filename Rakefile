@@ -34,3 +34,5 @@ Rake::RDocTask.new(:doc) do |doc|
   doc.rdoc_files.include('README.rdoc')
   doc.rdoc_files.include('lib/**/*.rb')
 end
+
+task :default => :test
