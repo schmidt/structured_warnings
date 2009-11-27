@@ -7,7 +7,7 @@ class Foo
   end
 end
 
-class TestStructuredWarnings < Test::Unit::TestCase
+class StructuredWarningsTest < Test::Unit::TestCase
   def test_warn
     assert_warn(DeprecatedMethodWarning) do 
       Foo.new.old_method

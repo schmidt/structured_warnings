@@ -1,3 +1,10 @@
+== 0.1.2 2009-11-27
+
+* major enhancements
+  * moved to gemcutter
+* minor enhancements
+  * removed all old cruft
+
 == 0.1.1 2008-02-22
 
 * 1 major enhancement:
