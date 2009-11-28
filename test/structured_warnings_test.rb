@@ -125,8 +125,8 @@ class StructuredWarningsTest < Test::Unit::TestCase
   end
 
   def test_warnings_may_not_be_disabled_twice
-    assert [Warning], Warning.disable
-    assert [Warning], Warning.disable
-    assert [], Warning.enable
+    assert_equal [Warning], Warning.disable
+    assert_equal [Warning], Warning.disable
+    assert_equal [], Warning.enable
   end
 end
