@@ -21,6 +21,8 @@ module StructuredWarnings
       #   assert_no_warn() { foo }                   # fails
       #
       # See assert_warn for more examples.
+      #
+      # *Note*: It is currently not possible to add a custom failure message.
       def assert_no_warn(*args)
         warning, message = parse_arguments(args)
 
@@ -28,7 +30,9 @@ module StructuredWarnings
         StructuredWarnings::with_warner(w) do 
           yield
         end
-        assert !w.warned?(warning, message), "#{warning} has been emitted."
+        assert_block("<#{args_inspect(args)}> has been emitted.") do
+          !w.warned?(warning, message)
+        end
       end
 
       # :call-seq:
@@ -57,6 +61,7 @@ module StructuredWarnings
       #   assert_warn(Warning, /deprecated/) { foo }
       #   assert_warn(Warning.new) { foo }
       #
+      # *Note*: It is currently not possible to add a custom failure message.
       def assert_warn(*args)
         warning, message = parse_arguments(args)
 
@@ -64,11 +69,14 @@ module StructuredWarnings
         StructuredWarnings::with_warner(w) do 
           yield
         end
-        assert w.warned?(warning, message), "#{warning} has not been emitted."
+        assert_block("<#{args_inspect(args)}> has not been emitted.") do
+          w.warned?(warning, message)
+        end
       end
 
     private
       def parse_arguments(args)
+        args = args.clone
         first = args.shift
         if first.is_a? Class and first <= Warning
           warning = first
@@ -93,6 +101,10 @@ module StructuredWarnings
         end
 
         return warning, message
+      end
+
+      def args_inspect(args)
+        args.map { |a| a.inspect }.join(", ")
       end
     end
   end
