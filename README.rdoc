@@ -11,9 +11,18 @@ the inspiring article at O'Reilly.
 
 http://www.oreillynet.com/ruby/blog/2008/02/structured_warnings_now.html
 
-== Installation
+== Installation & Compatibility
 
   gem install structured_warnings
+
+structured_warnings works with all interpreters, it was tested with.
+
+* Ruby 1.8.5 and later (MRI)
+* Ruby 1.9.1 (YARV)
+* JRuby 1.x
+
+Please let me know, of any other compatibilities or file a bug for any
+incompatibilities.
 
 == Example Usage
 
