@@ -8,13 +8,22 @@ module StructuredWarnings
       # method always returns nil to avoid warnings on stdout during assert_warn
       # and assert_no_warn blocks.
       def format(warning, message, call_stack)
-        given_warnings << warning 
+        given_warnings << warning.new(message)
         nil
       end
 
       # Returns true if any warning or a subclass of warning was emitted.
-      def warned?(warning)
-        given_warnings.any? {|w| (w <= warning)}
+      def warned?(warning, message = nil)
+        case message
+        when Regexp
+          given_warnings.any? {|w| w.is_a?(warning) && w.message =~ message}
+        when String
+          given_warnings.any? {|w| w.is_a?(warning) && w.message == message}
+        when nil
+          given_warnings.any? {|w| w.is_a?(warning)}
+        else
+          raise ArgumentError, "Unkown argument for 'message'"
+        end
       end
 
       # :stopdoc:

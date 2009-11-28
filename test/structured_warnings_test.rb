@@ -79,6 +79,51 @@ class StructuredWarningsTest < Test::Unit::TestCase
     end
   end
 
+  def test_passing_an_additional_message_to_assert_no_warn
+    assert_no_warn(Warning, "with message") do
+      warn Warning, "with another message"
+    end
+  end
+
+  def test_passing_an_additional_message_to_assert_warn
+    assert_warn(Warning, "with message") do
+      warn Warning, "with message"
+    end
+  end
+
+  def test_passing_a_warning_instance_to_assert_warn
+    assert_warn(Warning.new("with message")) do
+      warn Warning, "with message"
+    end
+  end
+
+  def test_passing_a_warning_instance_to_assert_no_warn
+    assert_no_warn(Warning.new("with message")) do
+      warn DeprecationWarning, "with another message"
+    end
+    assert_no_warn(Warning.new) do
+      warn Warning, "with message"
+    end
+  end
+
+  def test_passing_a_regexp_as_message_to_assert_warn
+    assert_warn(Warning, /message/) do
+      warn DeprecationWarning, "with another message"
+    end
+  end
+
+  def test_passing_a_regexp_as_message_to_no_assert_warn
+    assert_no_warn(Warning, /message/) do
+      warn DeprecationWarning
+    end
+  end
+
+  def test_passing_a_message_only_to_assert_warn
+    assert_warn("I told you so") do
+      warn "I told you so"
+    end
+  end
+
   def test_warnings_may_not_be_disabled_twice
     assert [Warning], Warning.disable
     assert [Warning], Warning.disable
