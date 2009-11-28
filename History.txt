@@ -1,3 +1,8 @@
+== 0.1.3 2009-11-28
+
+* major enhancements
+  * improved API of assert_warn and assert_no_warn
+
 == 0.1.2 2009-11-27
 
 * major enhancements
