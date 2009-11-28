@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
      "lib/structured_warnings/test/warner.rb",
      "lib/structured_warnings/warner.rb",
      "lib/structured_warnings/warning.rb",
+     "structured_warnings.gemspec",
      "test/structured_warnings_test.rb",
      "test/test_helper.rb",
      "version.yml"
