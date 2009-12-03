@@ -107,8 +107,8 @@ feedback to your users as possible.
 
 == Resources
 
-* {Initial announcement}[http://www.nach-vorne.de/2008/2/21/ann-structured_warnings-0-1-0-released]
 * {Inspiring article}[http://www.oreillynet.com/ruby/blog/2008/02/structured_warnings_now.html]
+* {Implementation Highlights}[http://www.nach-vorne.de/2008/2/22/structured_warnings-highlights]
 * {Project's website}[http://github.com/schmidt/structured_warnings/]
 * {API doc}[http://rdoc.info/projects/schmidt/structured_warnings]
 * {Build Status on RunCodeRun}[http://runcoderun.com/schmidt/structured_warnings]
