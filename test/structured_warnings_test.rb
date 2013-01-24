@@ -1,4 +1,5 @@
-require File.dirname(__FILE__) + '/test_helper.rb'
+require 'test/unit'
+require 'structured_warnings'
 
 class Foo
   def old_method

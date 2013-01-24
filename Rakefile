@@ -1,29 +1,28 @@
 require 'rake'
-require 'rake/rdoctask'
+require 'rake/clean'
+require 'rake/testtask'
+require 'rdoc/task'
 
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gemspec|
-    gemspec.name = "structured_warnings"
-    gemspec.summary = "Provides structured warnings for Ruby, using an exception-like interface and hierarchy."
-    gemspec.description = "This is an implementation of Daniel Berger's proposal of structured warnings for Ruby."
-    gemspec.email = "ruby@schmidtwisser.de"
-    gemspec.homepage = "http://github.com/schmidt/structured_warnings"
-    gemspec.authors = ["Gregor Schmidt"]
+CLEAN.include('**/*.gem', '**/*.rbx', '**/*.rbc')
 
-    gemspec.add_development_dependency('rake')
-    gemspec.add_development_dependency('jeweler', '>= 1.4.0')
+namespace :gem do
+  desc "Create the structured_warnings gem"
+  task :create => [:clean] do
+    spec = eval(IO.read('structured_warnings.gemspec'))
+    Gem::Builder.new(spec).build
   end
 
-  Jeweler::GemcutterTasks.new
-rescue LoadError
-  puts "Jeweler not available. Install it with: sudo gem install jeweler"
+  desc "Install the structured_warnings gem"
+  task :install => [:create] do
+    file = Dir['*.gem'].first
+    sh "gem install #{file}"
+  end
 end
 
-desc "Run all tests"
-task :test do 
-  require 'rake/runtest'
-  Rake.run_tests 'test/**/*_test.rb'
+Rake::TestTask.new do |t|
+  t.verbose = true 
+  t.warning = true
+  t.test_files = Dir['test/*.rb']
 end
 
 desc 'Generate documentation for the structured_warnings gem.'
