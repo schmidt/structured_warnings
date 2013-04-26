@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.homepage   = 'http://github.com/schmidt/structured_warnings'
   s.summary    = 'Provides structured warnings for Ruby, using an exception-like interface and hierarchy'
   s.files      = Dir['**/*'].reject{ |f| f.include?('git') }
-  s.test_files = ['test/*.rb']
+  s.test_files = Dir['test/*.rb']
 
   s.rdoc_options = ['--charset=UTF-8']
   s.extra_rdoc_files = ['README.rdoc']
