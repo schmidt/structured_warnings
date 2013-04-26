@@ -8,13 +8,13 @@ module StructuredWarnings
     #   warn(warning_class, message)
     #   warn(warning_instance)
     #
-    # This method provides a +raise+-like interface. It extends the default 
+    # This method provides a +raise+-like interface. It extends the default
     # warn in ::Kernel to allow the use of structured warnings.
     #
     # Internally it uses the StructuredWarnings::warner to format a message
     # based on the given warning class, the message and a stack frame.
     # The return value is passed to super, which is likely the implementation
-    # in ::Kernel. That way, it is less likely, that structured_warnings 
+    # in ::Kernel. That way, it is less likely, that structured_warnings
     # interferes with other extensions.
     #
     # It the warner return nil or an empty string the underlying warn will not
@@ -28,7 +28,7 @@ module StructuredWarnings
     #   warn "This is an old-style warning" # This will emit a StandardWarning
     #
     #   class Foo
-    #     def bar 
+    #     def bar
     #       warn DeprecationWarning, "Never use bar again, use beer"
     #     end
     #     def beer
@@ -36,12 +36,12 @@ module StructuredWarnings
     #     end
     #   end
     #
-    #   warn Warning.new("The least specific warning you can get") 
+    #   warn Warning.new("The least specific warning you can get")
     #
     def warn(*args)
       first = args.shift
       if first.is_a? Class and first <= Warning
-        warning = first 
+        warning = first
         message = args.shift
 
       elsif first.is_a? Warning
@@ -50,17 +50,17 @@ module StructuredWarnings
 
       else
         warning = StandardWarning
-        message = first.to_s 
+        message = first.to_s
       end
 
       unless args.empty?
-        raise ArgumentError, 
-              "wrong number of arguments (#{args.size + 2} for 2)" 
+        raise ArgumentError,
+              "wrong number of arguments (#{args.size + 2} for 2)"
       end
 
       if warning.active?
         output = StructuredWarnings.warner.format(warning, message, caller(1))
-        super(output) unless output.nil? or output.to_s.empty? 
+        super(output) unless output.nil? or output.to_s.empty?
       end
     end
   end

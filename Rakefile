@@ -20,7 +20,7 @@ namespace :gem do
 end
 
 Rake::TestTask.new do |t|
-  t.verbose = true 
+  t.verbose = true
   t.warning = true
   t.test_files = Dir['test/*.rb']
 end

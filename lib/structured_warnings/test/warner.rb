@@ -1,7 +1,7 @@
 module StructuredWarnings
   module Test
-    # This warner is used in Assertions#assert_warn and 
-    # Assertions#assert_no_warn blocks. It captures all warnings in format and 
+    # This warner is used in Assertions#assert_warn and
+    # Assertions#assert_no_warn blocks. It captures all warnings in format and
     # provides access to them using the warned? method.
     class Warner < StructuredWarnings::Warner
       # Overrides the public interface of StructuredWarnings::Warner. This

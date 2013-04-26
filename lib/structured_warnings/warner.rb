@@ -5,7 +5,7 @@ module StructuredWarnings
   # the place where the "thing that caused the warning" resides.
   class Warner
     #  Warner.new.format(DeprecationWarning, "more info..", caller)
-    #     # => "demo.rb:5 : more info.. (DeprecationWarning)" 
+    #     # => "demo.rb:5 : more info.. (DeprecationWarning)"
     def format(warning, message, stack)
       "#{stack.shift} : #{message} (#{warning})"
     end

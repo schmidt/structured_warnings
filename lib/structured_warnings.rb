@@ -7,8 +7,8 @@ require "structured_warnings/warning"
 
 
 module StructuredWarnings
-  # If you <code>require "test/unit"</code> after +structured_warnings+ you 
-  # have to <code>require "structured_warnings/test"</code> manually, 
+  # If you <code>require "test/unit"</code> after +structured_warnings+ you
+  # have to <code>require "structured_warnings/test"</code> manually,
   # otherwise the test extensions will be added automatically.
   module ClassMethods
     # Executes a block using the given warner. This may be used to suppress
@@ -28,14 +28,14 @@ module StructuredWarnings
     end
 
     #:stopdoc:
-    # Sets a new warner 
+    # Sets a new warner
     def warner=(new_warner)
       Dynamic[:warner] = new_warner
     end
 
     # returns an Array of all currently disabled warnings.
     #
-    # *Note*: Everyday users are supposed to use the methods in 
+    # *Note*: Everyday users are supposed to use the methods in
     # Warning::ClassMethods
     def disabled_warnings
       Dynamic[:disabled_warnings]
@@ -44,7 +44,7 @@ module StructuredWarnings
     # sets an array of all currently disabled warnings. It is expected that this
     # array consists only of the Warning class and its subclasses.
     #
-    # *Note*: Everyday users are supposed to use the methods in 
+    # *Note*: Everyday users are supposed to use the methods in
     # Warning::ClassMethods
     def disabled_warnings=(new_disabled_warnings)
       Dynamic[:disabled_warnings] = new_disabled_warnings
@@ -52,7 +52,7 @@ module StructuredWarnings
 
     # Executes a block with the given set of disabled instances.
     #
-    # *Note*: Everyday users are supposed to use the methods in 
+    # *Note*: Everyday users are supposed to use the methods in
     # Warning::ClassMethods
     def with_disabled_warnings(disabled_warnings)
       Dynamic.let(:disabled_warnings => disabled_warnings) do

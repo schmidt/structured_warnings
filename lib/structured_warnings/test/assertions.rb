@@ -27,7 +27,7 @@ module StructuredWarnings
         warning, message = parse_arguments(args)
 
         w = StructuredWarnings::Test::Warner.new
-        StructuredWarnings::with_warner(w) do 
+        StructuredWarnings::with_warner(w) do
           yield
         end
         assert_block("<#{args_inspect(args)}> has been emitted.") do
@@ -49,9 +49,9 @@ module StructuredWarnings
       #   end
       #
       #   # passes
-      #   assert_warn(DeprecatedMethodWarning) { foo }      
-      #   assert_warn(DeprecationWarning) { foo }           
-      #   assert_warn() { foo }                             
+      #   assert_warn(DeprecatedMethodWarning) { foo }
+      #   assert_warn(DeprecationWarning) { foo }
+      #   assert_warn() { foo }
       #   assert_warn(Warning, "used foo, use bar instead") { foo }
       #   assert_warn(Warning, /use bar/) { foo }
       #   assert_warn(Warning.new("used foo, use bar instead")) { foo }
@@ -66,7 +66,7 @@ module StructuredWarnings
         warning, message = parse_arguments(args)
 
         w = StructuredWarnings::Test::Warner.new
-        StructuredWarnings::with_warner(w) do 
+        StructuredWarnings::with_warner(w) do
           yield
         end
         assert_block("<#{args_inspect(args)}> has not been emitted.") do
@@ -96,8 +96,8 @@ module StructuredWarnings
         end
 
         unless args.empty?
-          raise ArgumentError, 
-                "wrong number of arguments (#{args.size + 2} for 2)" 
+          raise ArgumentError,
+                "wrong number of arguments (#{args.size + 2} for 2)"
         end
 
         return warning, message

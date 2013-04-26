@@ -1,9 +1,9 @@
-# Descendents of class Warning are used to  raise structured warnings. They 
+# Descendents of class Warning are used to  raise structured warnings. They
 # programmers to explicitly supress certain kinds of warnings and provide
 # additional information in contrast to the plain warn method. They
 # implement an Exception-like interface and carry information about the
-# warning -- its type (the warning's class name), an optional descriptive 
-# string, and optional traceback information. Programs may subclass Warning 
+# warning -- its type (the warning's class name), an optional descriptive
+# string, and optional traceback information. Programs may subclass Warning
 # to add additional information.
 #
 # Large portions of this class's documentation are taken from the Exception
@@ -18,7 +18,7 @@ class Warning
 
   # call-seq:
   #    warning.backtrace    => array
-  # 
+  #
   # Returns any backtrace associated with the warning. The backtrace
   # is an array of strings, each containing either ``filename:lineNo: in
   # `method''' or ``filename:lineNo.''
@@ -26,11 +26,11 @@ class Warning
     @backtrace
   end
 
-  # Sets the backtrace information associated with warning. The argument must 
-  # be an array of String objects in the format described in 
+  # Sets the backtrace information associated with warning. The argument must
+  # be an array of String objects in the format described in
   # Exception#backtrace.
   def set_backtrace(backtrace)
-    @backtrace = backtrace 
+    @backtrace = backtrace
   end
 
   # Returns warning's message (or the name of the warning if no message is set).
@@ -115,15 +115,15 @@ end
 # This warning is used when calling #Kernel.warn without arguments.
 class StandardWarning < Warning; end
 
-# This is a general warning used to mark certain actions as deprecated. We 
+# This is a general warning used to mark certain actions as deprecated. We
 # recommend to add a useful warning message, which alternative to use instead.
 class DeprecationWarning < Warning; end
 
-# This warning marks single methods as deprecated. We 
+# This warning marks single methods as deprecated. We
 # recommend to add a useful warning message, which alternative to use instead.
 class DeprecatedMethodWarning < DeprecationWarning; end
 
-# This warning marks the given parameters for a certain methods as 
-# deprecated. We recommend to add a useful warning message, which 
+# This warning marks the given parameters for a certain methods as
+# deprecated. We recommend to add a useful warning message, which
 # alternative to use instead.
 class DeprecatedSignatureWarning < DeprecationWarning; end

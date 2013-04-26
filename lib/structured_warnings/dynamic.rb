@@ -1,8 +1,8 @@
-# This library was created by Christian Neukirchen in the context of 
+# This library was created by Christian Neukirchen in the context of
 # EuRuKo 2005 and is licensed under the same terms as Ruby.
 #
-# It provides dynamically scoped variables. It is used within 
-# +structured_warnings+ to store the current, thread-wide disabled warning 
+# It provides dynamically scoped variables. It is used within
+# +structured_warnings+ to store the current, thread-wide disabled warning
 # classes.
 #
 # For more information see the corresponding slides at
@@ -24,7 +24,7 @@ module Dynamic
     def variables
       Thread.current[:DYNAMIC] or here!
     end
-    
+
     def variable(definition)
       case definition
       when Symbol
@@ -44,11 +44,11 @@ module Dynamic
         "can't create a new dynamic variable from #{definition.class}"
       end
     end
-    
+
     def [](key)
       variables[key]
     end
-    
+
     def []=(key, value)
       variables[key] = value
     end
