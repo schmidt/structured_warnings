@@ -1,10 +1,7 @@
-$:.unshift File.dirname(__FILE__)
-
 require "structured_warnings/dynamic"
 require "structured_warnings/kernel"
 require "structured_warnings/warner"
 require "structured_warnings/warning"
-
 
 module StructuredWarnings
   # If you <code>require "test/unit"</code> after +structured_warnings+ you
