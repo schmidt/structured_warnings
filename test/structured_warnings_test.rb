@@ -9,6 +9,24 @@ class Foo
 end
 
 class StructuredWarningsTest < Test::Unit::TestCase
+  def test_fork_in_thread
+    Thread.new do
+      fork do
+        begin
+          DeprecatedMethodWarning.disable do
+            Foo.new.old_method
+          end
+        rescue
+          puts "\n#{$!.class.name}: #{$!.message}"
+          puts $!.backtrace.join("\n")
+          exit 1
+        end
+      end
+    end.join
+    Process.wait
+    assert($?.success?, 'Forked subprocess failed')
+  end
+
   def test_warn
     assert_warn(DeprecatedMethodWarning) do
       Foo.new.old_method

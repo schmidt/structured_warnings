@@ -11,18 +11,22 @@
 # (c) 2005 - Christian Neukirchen - http://chneukirchen.org
 module Dynamic
   module ClassMethods #:nodoc:
-    Thread.main[:DYNAMIC] = Hash.new { |hash, key|
-      raise NameError, "no such dynamic variable: #{key}"
-    }
+    class << self
+      def main_dynamics
+        @main_dynamics ||= Hash.new { |hash, key|
+          raise NameError, "no such dynamic variable: #{key}"
+        }
+      end
+    end
 
     def here!
       Thread.current[:DYNAMIC] = Hash.new { |hash, key|
         raise NameError, "no such dynamic variable: #{key}"
-      }.update Thread.main[:DYNAMIC]
+      }.update ClassMethods.main_dynamics
     end
 
     def variables
-      Thread.current[:DYNAMIC] or here!
+      Thread.current == Thread.main ? ClassMethods.main_dynamics : Thread.current[:DYNAMIC] or here!
     end
 
     def variable(definition)
