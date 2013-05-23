@@ -6,7 +6,9 @@
 # classes.
 #
 # For more information see the corresponding slides at
-# http://chneukirchen.org/talks/euruko-2005/chneukirchen-euruko2005-contextr.pdf
+#   http://chneukirchen.org/talks/euruko-2005/chneukirchen-euruko2005-contextr.pdf
+# and the blog post at
+#   http://chneukirchen.org/blog/archive/2005/04/dynamic-variables-in-ruby.html
 #
 # (c) 2005 - Christian Neukirchen - http://chneukirchen.org
 module Dynamic
