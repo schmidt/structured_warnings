@@ -6,6 +6,11 @@ class Foo
     warn DeprecatedMethodWarning,
          'This method is deprecated. Use new_method instead'
   end
+
+  def old_method_too
+    warn :deprecated,
+        'This method is deprecated. Use new_method instead'
+  end
 end
 
 class StructuredWarningsTest < Test::Unit::TestCase
@@ -30,6 +35,12 @@ class StructuredWarningsTest < Test::Unit::TestCase
   def test_warn
     assert_warn(DeprecatedMethodWarning) do
       Foo.new.old_method
+    end
+  end
+
+  def test_old_warn
+    assert_warn(:deprecated) do
+      Foo.new.old_method_too
     end
   end
 
