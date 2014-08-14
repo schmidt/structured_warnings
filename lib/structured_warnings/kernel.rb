@@ -38,6 +38,7 @@ module StructuredWarnings
     #
     #   warn Warning.new("The least specific warning you can get")
     #
+    alias_method :old_warn, :warn
     def warn(*args)
       first = args.shift
       if first.is_a? Class and first <= Warning
@@ -53,10 +54,7 @@ module StructuredWarnings
         message = first.to_s
       end
 
-      unless args.empty?
-        raise ArgumentError,
-              "wrong number of arguments (#{args.size + 2} for 2)"
-      end
+      old_warn(*args) unless args.empty?
 
       if warning.active?
         output = StructuredWarnings.warner.format(warning, message, caller(1))
