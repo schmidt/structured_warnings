@@ -53,10 +53,7 @@ module StructuredWarnings
         message = first.to_s
       end
 
-      unless args.empty?
-        raise ArgumentError,
-              "wrong number of arguments (#{args.size + 2} for 2)"
-      end
+      super unless args.empty?
 
       if warning.active?
         output = StructuredWarnings.warner.format(warning, message, caller(1))
