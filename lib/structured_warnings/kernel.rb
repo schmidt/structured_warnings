@@ -38,7 +38,6 @@ module StructuredWarnings
     #
     #   warn Warning.new("The least specific warning you can get")
     #
-    alias_method :old_warn, :warn
     def warn(*args)
       first = args.shift
       if first.is_a? Class and first <= Warning
@@ -54,7 +53,7 @@ module StructuredWarnings
         message = first.to_s
       end
 
-      old_warn(*args) unless args.empty?
+      super unless args.empty?
 
       if warning.active?
         output = StructuredWarnings.warner.format(warning, message, caller(1))
