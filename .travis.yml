@@ -1,0 +1,10 @@
+language: ruby
+sudo: false
+rvm:
+  - "1.8"
+  - "1.9"
+  - "2.1"
+  - "2.2"
+  - jruby-18mode
+  - jruby-19mode
+  - rbx-2
