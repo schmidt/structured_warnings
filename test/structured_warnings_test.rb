@@ -21,8 +21,18 @@ class Bar
 end
 
 class StructuredWarningsTest < Test::Unit::TestCase
+  def supports_fork
+    return false unless Process.respond_to? :fork
+    fork { Kernel.exit! }
+    Process.wait
+
+    true
+  rescue NotImplementedError
+    false
+  end
+
   def test_fork_in_thread
-    return unless Process.respond_to? :fork
+    return unless supports_fork
 
     Thread.new do
       fork do
