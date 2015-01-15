@@ -2,7 +2,7 @@ require 'test/unit'
 require 'structured_warnings'
 
 class Foo
-  def old_method
+  def method_using_structured_warning_style_api
     warn DeprecatedMethodWarning,
          'This method is deprecated. Use new_method instead'
   end
@@ -26,7 +26,7 @@ class StructuredWarningsTest < Test::Unit::TestCase
       fork do
         begin
           DeprecatedMethodWarning.disable do
-            Foo.new.old_method
+            Foo.new.method_using_structured_warning_style_api
           end
         rescue
           puts "\n#{$!.class.name}: #{$!.message}"
@@ -39,9 +39,9 @@ class StructuredWarningsTest < Test::Unit::TestCase
     assert($?.success?, 'Forked subprocess failed')
   end
 
-  def test_warn
+  def test_warn_using_structured_warning_style_api
     assert_warn(DeprecatedMethodWarning) do
-      Foo.new.old_method
+      Foo.new.method_using_structured_warning_style_api
     end
   end
 
@@ -59,7 +59,7 @@ class StructuredWarningsTest < Test::Unit::TestCase
   def test_disable_warning_blockwise
     assert_no_warn(DeprecatedMethodWarning) do
       DeprecatedMethodWarning.disable do
-        Foo.new.old_method
+        Foo.new.method_using_structured_warning_style_api
       end
     end
   end
@@ -67,7 +67,7 @@ class StructuredWarningsTest < Test::Unit::TestCase
   def test_disable_warning_globally
     assert_no_warn(DeprecatedMethodWarning) do
       DeprecatedMethodWarning.disable
-      Foo.new.old_method
+      Foo.new.method_using_structured_warning_style_api
       DeprecatedMethodWarning.enable
     end
   end
@@ -76,7 +76,7 @@ class StructuredWarningsTest < Test::Unit::TestCase
     assert_warn(DeprecatedMethodWarning) do
       DeprecatedMethodWarning.disable do
         DeprecatedMethodWarning.enable do
-          Foo.new.old_method
+          Foo.new.method_using_structured_warning_style_api
         end
       end
     end
@@ -85,11 +85,11 @@ class StructuredWarningsTest < Test::Unit::TestCase
   def test_warnings_have_an_inheritance_relation
     assert_no_warn(DeprecatedMethodWarning) do
       DeprecationWarning.disable do
-        Foo.new.old_method
+        Foo.new.method_using_structured_warning_style_api
       end
     end
     assert_warn(DeprecationWarning) do
-      Foo.new.old_method
+      Foo.new.method_using_structured_warning_style_api
     end
   end
 
@@ -97,7 +97,7 @@ class StructuredWarningsTest < Test::Unit::TestCase
     require "stringio"
     old_stderr = $stderr
     $stderr = io = ::StringIO.new
-    Foo.new.old_method
+    Foo.new.method_using_structured_warning_style_api
     $stderr = old_stderr
     io.rewind
     assert io.length > 0
