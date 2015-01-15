@@ -22,6 +22,8 @@ end
 
 class StructuredWarningsTest < Test::Unit::TestCase
   def test_fork_in_thread
+    return unless Process.respond_to? :fork
+
     Thread.new do
       fork do
         begin
@@ -36,6 +38,7 @@ class StructuredWarningsTest < Test::Unit::TestCase
       end
     end.join
     Process.wait
+
     assert($?.success?, 'Forked subprocess failed')
   end
 
