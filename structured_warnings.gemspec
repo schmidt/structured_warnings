@@ -13,6 +13,9 @@ Gem::Specification.new do |s|
   s.rdoc_options = ['--charset=UTF-8']
   s.extra_rdoc_files = ['README.rdoc']
 
+  s.add_development_dependency "rake"
+  s.add_development_dependency "test-unit"
+
   s.description = %Q{
     This is an implementation of Daniel Berger's proposal of structured
     warnings for Ruby.

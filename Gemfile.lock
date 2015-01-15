@@ -1,0 +1,20 @@
+PATH
+  remote: .
+  specs:
+    structured_warnings (0.1.4)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    power_assert (0.2.2)
+    rake (10.4.2)
+    test-unit (3.0.9)
+      power_assert
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  rake
+  structured_warnings!
+  test-unit
