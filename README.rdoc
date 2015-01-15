@@ -1,7 +1,7 @@
 = Structured Warnings
 
 This is an implementation of Daniel Berger's {proposal of structured warnings
-for Ruby}[http://www.oreillynet.com/ruby/blog/2008/02/structured_warnings_now.html]. They provide dynamic suppression and activation, as well as, an
+for Ruby}[https://web.archive.org/web/20140328021259/http://www.oreillynet.com/ruby/blog/2008/02/structured_warnings_now.html]. They provide dynamic suppression and activation, as well as, an
 inheritance hierarchy to model their relations. This library preserves the old
 <code>warn</code> signature, but additionally allows a <code>raise</code>-like
 use.
@@ -9,7 +9,8 @@ use.
 For more information on the usage and benefits of this library have a look at
 the inspiring article at O'Reilly.
 
-http://www.oreillynet.com/ruby/blog/2008/02/structured_warnings_now.html
+{www.oreillynet.com/ruby/blog/2008/02/structured_warnings_now.html}[https://web.archive.org/web/20140328021259/http://www.oreillynet.com/ruby/blog/2008/02/structured_warnings_now.html]
+(link to web archive - O'Reilly took it down)
 
 == Installation & Compatibility
 
@@ -107,7 +108,7 @@ feedback to your users as possible.
 
 == Resources
 
-* {Inspiring article}[http://www.oreillynet.com/ruby/blog/2008/02/structured_warnings_now.html]
+* {Inspiring article}[https://web.archive.org/web/20140328021259/http://www.oreillynet.com/ruby/blog/2008/02/structured_warnings_now.html]
 * {Implementation Highlights}[http://www.nach-vorne.de/2008/2/22/structured_warnings-highlights]
 * {Project's website}[https://github.com/schmidt/structured_warnings/]
 * {API doc}[http://rdoc.info/projects/schmidt/structured_warnings]
