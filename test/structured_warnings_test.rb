@@ -6,10 +6,17 @@ class Foo
     warn DeprecatedMethodWarning,
          'This method is deprecated. Use new_method instead'
   end
+end
 
-  def old_method_too
-    warn :deprecated,
-        'This method is deprecated. Use new_method instead'
+class Bar
+  attr_reader :args
+
+  def warn(*args)
+    @args = args
+  end
+
+  def method_using_incompatible_warn_api
+    warn :deprecated, 'explanation'
   end
 end
 
@@ -38,10 +45,15 @@ class StructuredWarningsTest < Test::Unit::TestCase
     end
   end
 
-  def test_old_warn
-    assert_warn(:deprecated) do
-      Foo.new.old_method_too
+  def test_warn_using_incompatible_warn_api
+    bar = Bar.new
+
+    assert_no_warn do
+      bar.method_using_incompatible_warn_api
     end
+
+    assert_equal :deprecated,   bar.args.first
+    assert_equal "explanation", bar.args.last
   end
 
   def test_disable_warning_blockwise

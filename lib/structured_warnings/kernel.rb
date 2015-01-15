@@ -53,7 +53,10 @@ module StructuredWarnings
         message = first.to_s
       end
 
-      super unless args.empty?
+      # If args is not empty, user passed an incompatible set of arguments.
+      # Maybe somebody else is overriding warn as well and knows, what to do.
+      # Better do nothing in this case. See #5
+      return super unless args.empty?
 
       if warning.active?
         output = StructuredWarnings.warner.format(warning, message, caller(1))
