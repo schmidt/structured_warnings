@@ -1,3 +1,10 @@
+== 0.2.0 2015-01-15
+
+* Merging pull requests #4, and #5
+  * Fixes to dynamic.rb to support forking from non-main thread
+  * Improve compatibility with other libs overriding Kernel#warn
+* Testing on latest Ruby VMs (Ruby 2 variants, JRuby and Rubinius)
+
 == 0.1.4 2013-01-23
 * Reorganized Rakefile and tasks, removed Jeweler dependency.
 * Updated tests, fixed circular dependency error.

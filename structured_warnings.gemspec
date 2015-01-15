@@ -2,11 +2,12 @@ require 'rubygems'
 
 Gem::Specification.new do |s|
   s.name       = 'structured_warnings'
-  s.version    = '0.1.4'
+  s.version    = '0.2.0'
   s.author     = 'Gregor Schmidt'
   s.email      = 'ruby@schmidtwisser.de'
   s.homepage   = 'http://github.com/schmidt/structured_warnings'
   s.summary    = 'Provides structured warnings for Ruby, using an exception-like interface and hierarchy'
+  s.license    = 'MIT'
   s.files      = Dir['**/*'].reject{ |f| f.include?('git') }
   s.test_files = Dir['test/*.rb']
 
