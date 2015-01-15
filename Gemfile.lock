@@ -12,6 +12,7 @@ GEM
       power_assert
 
 PLATFORMS
+  java
   ruby
 
 DEPENDENCIES
