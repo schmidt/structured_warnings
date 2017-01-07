@@ -1,3 +1,6 @@
+# Deal with Ruby 2.4's lame Warning module
+Object.send(:remove_const, :Warning) if Object.const_defined?(:Warning)
+
 require "structured_warnings/dynamic"
 require "structured_warnings/kernel"
 require "structured_warnings/warner"
