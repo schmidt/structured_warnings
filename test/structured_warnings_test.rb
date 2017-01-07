@@ -117,58 +117,58 @@ class StructuredWarningsTest < Test::Unit::TestCase
   end
 
   def test_warning_is_default_warning
-    assert_warn(Warning) do
+    assert_warn(Warningg) do
       warn "my warning"
     end
   end
 
   def test_passing_a_warning_instance_works_as_well
-    assert_warn(Warning) do
-      warn Warning.new("my warning")
+    assert_warn(Warningg) do
+      warn Warningg.new("my warning")
     end
   end
 
   def test_passing_anything_but_a_subclass_or_instance_of_warning_will_work
-    assert_warn(Warning) do
+    assert_warn(Warningg) do
       warn nil
     end
   end
 
   def test_passing_an_additional_message_to_assert_no_warn
-    assert_no_warn(Warning, "with message") do
-      warn Warning, "with another message"
+    assert_no_warn(Warningg, "with message") do
+      warn Warningg, "with another message"
     end
   end
 
   def test_passing_an_additional_message_to_assert_warn
-    assert_warn(Warning, "with message") do
-      warn Warning, "with message"
+    assert_warn(Warningg, "with message") do
+      warn Warningg, "with message"
     end
   end
 
   def test_passing_a_warning_instance_to_assert_warn
-    assert_warn(Warning.new("with message")) do
-      warn Warning, "with message"
+    assert_warn(Warningg.new("with message")) do
+      warn Warningg, "with message"
     end
   end
 
   def test_passing_a_warning_instance_to_assert_no_warn
-    assert_no_warn(Warning.new("with message")) do
+    assert_no_warn(Warningg.new("with message")) do
       warn DeprecationWarning, "with another message"
     end
-    assert_no_warn(Warning.new) do
-      warn Warning, "with message"
+    assert_no_warn(Warningg.new) do
+      warn Warningg, "with message"
     end
   end
 
   def test_passing_a_regexp_as_message_to_assert_warn
-    assert_warn(Warning, /message/) do
+    assert_warn(Warningg, /message/) do
       warn DeprecationWarning, "with another message"
     end
   end
 
   def test_passing_a_regexp_as_message_to_no_assert_warn
-    assert_no_warn(Warning, /message/) do
+    assert_no_warn(Warningg, /message/) do
       warn DeprecationWarning
     end
   end
@@ -180,8 +180,8 @@ class StructuredWarningsTest < Test::Unit::TestCase
   end
 
   def test_warnings_may_not_be_disabled_twice
-    assert_equal [Warning], Warning.disable
-    assert_equal [Warning], Warning.disable
-    assert_equal [], Warning.enable
+    assert_equal [Warningg], Warningg.disable
+    assert_equal [Warningg], Warningg.disable
+    assert_equal [], Warningg.enable
   end
 end

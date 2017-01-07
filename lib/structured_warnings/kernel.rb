@@ -40,11 +40,11 @@ module StructuredWarnings
     #
     def warn(*args)
       first = args.shift
-      if first.is_a? Class and first <= Warning
+      if first.is_a? Class and first <= Warningg
         warning = first
         message = args.shift
 
-      elsif first.is_a? Warning
+      elsif first.is_a? Warningg
         warning = first.class
         message = first.message
 

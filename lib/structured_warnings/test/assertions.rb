@@ -78,11 +78,11 @@ module StructuredWarnings
       def parse_arguments(args)
         args = args.clone
         first = args.shift
-        if first.is_a? Class and first <= Warning
+        if first.is_a? Class and first <= Warningg
           warning = first
           message = args.shift
 
-        elsif first.is_a? Warning
+        elsif first.is_a? Warningg
           warning = first.class
           message = first.message
 
@@ -91,7 +91,7 @@ module StructuredWarnings
           message = first
 
         else
-          warning = Warning
+          warning = Warningg
           message = nil
         end
 

@@ -8,7 +8,7 @@
 #
 # Large portions of this class's documentation are taken from the Exception
 # RDoc.
-class Warning
+class Warningg
   # Construct a new Warning object, optionally passing in a message.
   def initialize(message = nil)
     @message = message
@@ -113,11 +113,11 @@ class Warning
 end
 
 # This warning is used when calling #Kernel.warn without arguments.
-class StandardWarning < Warning; end
+class StandardWarning < Warningg; end
 
 # This is a general warning used to mark certain actions as deprecated. We
 # recommend to add a useful warning message, which alternative to use instead.
-class DeprecationWarning < Warning; end
+class DeprecationWarning < Warningg; end
 
 # This warning marks single methods as deprecated. We
 # recommend to add a useful warning message, which alternative to use instead.
