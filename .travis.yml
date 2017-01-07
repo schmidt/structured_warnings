@@ -1,11 +1,11 @@
 language: ruby
 sudo: false
 rvm:
-  - "1.8"
-  - "1.9"
-  - "2.1"
-  - "2.2"
-  - "2.4.0"
+  - ruby-1.8
+  - ruby-1.9
+  - ruby-2.1
+  - ruby-2.2
+  - ruby-2.4.0
   - jruby-18mode
   - jruby-19mode
   - rbx-2
