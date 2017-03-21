@@ -1,0 +1,22 @@
+PATH
+  remote: .
+  specs:
+    structured_warnings (0.3.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    minitest (5.10.1)
+    rake (10.5.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.14)
+  minitest (~> 5.0)
+  rake (~> 10.0)
+  structured_warnings!
+
+BUNDLED WITH
+   1.14.6
