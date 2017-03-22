@@ -166,7 +166,7 @@ git commits and tags, and push the `.gem` file to
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at
-[github,com/schmidt/structured\_warnings](https://github.com/schmidt/structured_warnings).
+[github.com/schmidt/structured\_warnings](https://github.com/schmidt/structured_warnings).
 
 
 ## License
