@@ -1,5 +1,3 @@
-require 'structured_warnings/kernel'
-
 module Warning
   KERNEL_WARN = Kernel.instance_method(:warn).bind(self)
 

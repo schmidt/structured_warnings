@@ -64,6 +64,7 @@ module StructuredWarnings
   extend ClassMethods
 end
 
+require 'structured_warnings/kernel'
 require 'structured_warnings/warning'
 require 'structured_warnings/warner'
 require 'structured_warnings/base'
