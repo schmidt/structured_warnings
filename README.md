@@ -138,7 +138,7 @@ Part of this library is a set of different warnings:
     * `StructuredWarnings::DeprecatedMethodWarning`
     * `StructuredWarnings::DeprecatedSignatureWarning`
 
-You are encourage to use your own subclasses of `StructuredWarnings::Base` to
+You are encouraged to use your own subclasses of `StructuredWarnings::Base` to
 give as much feedback to your users as possible.
 
 
