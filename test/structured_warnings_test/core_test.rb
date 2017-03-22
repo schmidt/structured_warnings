@@ -2,7 +2,7 @@ require 'test_helper'
 
 class StructuredWarningsTest::CoreTest < Minitest::Test
   def test_warning_is_a_module
-    assert_equal Module,  Warning.class
+    assert_equal Module, Warning.class
   end
 
   def test_warning_has_warn_instance_method
@@ -10,11 +10,9 @@ class StructuredWarningsTest::CoreTest < Minitest::Test
   end
 
   def test_warn_delegates_to_warning_warn
-    skip("Not sure how to use minitest's mocks/stubs to test")
-
     called = false
 
-    Warning.stub :warn, -> { called = true } do
+    Warning.stub :warn, -> (*) { called = true } do
       warn ''
     end
 
