@@ -37,7 +37,7 @@ Or install it yourself as:
 
 ## Compatibility
 
-`structured\_warnings` aims to work with all Ruby interpreters.
+`structured_warnings` aims to work with all Ruby interpreters.
 
 Please let me know, of any other compatibilities or file a bug for any
 incompatibilities.
@@ -45,17 +45,17 @@ incompatibilities.
 
 ### Known Issues
 
-Although the library transparently coorperates with Ruby's built-in
-<code>Kernel#warn</code>, it may not override +rb_warn+ which is used internally to emit
-"method redefined", "void context", and "parenthesis" warnings. They may not be
-manipulated by structured_warnings.
+In Ruby versions before 2.4, the library may not extend Ruby's internal
+warnings handled by the C-level function `rb_warn`. Therefore warnings like
+"method redefined", "void context", and "parenthesis" may not be manipulated by
+`structured_warnings`.
 
 
 ## Usage
 
 To get you started - here is a short example
 
-In order to use `structured\_warnings` in library code, use the following code.
+In order to use `structured_warnings` in library code, use the following code.
 
 ```ruby
 # in lib/...
@@ -63,7 +63,7 @@ require 'structured_warnings'
 
 class Foo
   def old_method
-    warn DeprecatedMethodWarning, 'This method is deprecated. Use new_method instead'
+    warn StructuredWarnings::DeprecatedMethodWarning, 'This method is deprecated. Use new_method instead'
     # Do stuff
   end
 end
@@ -78,13 +78,14 @@ class FooTests < Test::Unit::TestCase
   end
 
   def test_old_method_emits_deprecation_warning
-    assert_warn(DeprecatedMethodWarning){ @foo.old_method }
+    assert_warn(StructuredWarnings::DeprecatedMethodWarning){ @foo.old_method }
   end
 end
 ```
 
-`DeprecatedMethodWarning` is only one of multiple predefined warning types. You
-may add your own types by subclassing Warning if you like.
+`StructuredWarnings::DeprecatedMethodWarning` is only one of multiple predefined
+warning types. You may add your own types by subclassing
+`StructuredWarnings::Base` if you like.
 
 Client code of your library will look as follows:
 
@@ -93,7 +94,7 @@ require "foo"
 
 foo = Foo.new
 foo.old_method # => will print
-               # ... `old_method' : This method is deprecated. Use new_method instead (DeprecatedMethodWarning)
+               # ... `old_method' : This method is deprecated. Use new_method instead (StructuredWarnings::DeprecatedMethodWarning)
 ```
 
 But the main difference to the standard warning concept shipped with ruby, is
@@ -101,11 +102,11 @@ that the client is able to selectively disable certain warnings s/he is aware of
 and not willing to fix.
 
 ```ruby
-DeprecatedMethodWarning.disable # Globally disable warnings about deprecated methods!
+StructuredWarnings::DeprecatedMethodWarning.disable # Globally disable warnings about deprecated methods!
 
 foo.old_method # => will print nothing
 
-DeprecatedMethodWarning.enable # Reenable warnings again.
+StructuredWarnings::DeprecatedMethodWarning.enable # Reenable warnings again.
 ```
 
 And there is an even more powerful option for your clients, the can selectively
@@ -115,7 +116,7 @@ disable warnings in a dynamic block scope.
 # Don't bug me about deprecated method warnings within this block, I know
 # what I'm doing.
 #
-DeprecatedMethodWarning.disable do
+StructuredWarnings::DeprecatedMethodWarning.disable do
   foo.old_method
 end
 ```
@@ -126,19 +127,19 @@ block scope) and automatically reset after the block.
 
 ## Detailed Documentation
 
-Have closer look at the RDoc of `StructuredWarnings::Kernel`, `Warning` and
-`Warning::ClassMethods`.
+Have closer look at the RDoc of `StructuredWarnings::Warning`,
+`StructuredWarnings::Base` and `StructuredWarnings::Base::ClassMethods`.
 
 Part of this library is a set of different warnings:
 
-* `Warning`
-  * `StandardWarning`
-  * `DeprecationWarning`
-    * `DeprecatedMethodWarning`
-    * `DeprecatedSignatureWarning`
+* `StructuredWarnings::Base`
+  * `StructuredWarnings::StandardWarning`
+  * `StructuredWarnings::DeprecationWarning`
+    * `StructuredWarnings::DeprecatedMethodWarning`
+    * `StructuredWarnings::DeprecatedSignatureWarning`
 
-You are encourage to use your own subclasses of `Warning` to give as much
-feedback to your users as possible.
+You are encourage to use your own subclasses of `StructuredWarnings::Base` to
+give as much feedback to your users as possible.
 
 
 ## Resources
