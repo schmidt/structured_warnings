@@ -57,6 +57,15 @@ Here's a table which should ease upgrading.
 | `DeprecatedSignatureWarning` | `StructuredWarnings::DeprecatedSignatureWarning` |
 
 
+### Test framework support
+
+`structured_warnings` supports both
+[test-unit](https://github.com/test-unit/test-unit/) and
+[minitest/test](https://github.com/seattlerb/minitest/) by adding the
+`assert_warn` and `assert_no_warn` assertions.
+
+Pull requests which add support for `RSpec` or `minitest/spec` are very welcome.
+
 
 ### Known Issues
 

@@ -37,7 +37,6 @@ module StructuredWarnings::Warning
   #   warn StructuredWarnings::Base.new("The least specific warning you can get")
   #
   def warn(*args)
-    puts 'i was here'
     first = args.shift
     if first.is_a? Class and first <= StructuredWarnings::Base
       warning = first

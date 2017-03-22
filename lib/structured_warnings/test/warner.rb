@@ -1,7 +1,7 @@
 # This warner is used in Assertions#assert_warn and
 # Assertions#assert_no_warn blocks. It captures all warnings in format and
 # provides access to them using the warned? method.
-class StructuredWarnings::TestUnit::Warner < StructuredWarnings::Warner
+class StructuredWarnings::Test::Warner < StructuredWarnings::Warner
   # Overrides the public interface of StructuredWarnings::Warner. This
   # method always returns nil to avoid warnings on stdout during assert_warn
   # and assert_no_warn blocks.

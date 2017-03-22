@@ -1,5 +1,5 @@
 # This module ecapsulates all extensions to support <code>test/unit</code>.
-module StructuredWarnings::TestUnit::Assertions
+module StructuredWarnings::Test::Assertions
   # :call-seq:
   #   assert_no_warn(message = nil) {|| ...}
   #   assert_no_warn(warning_class, message) {|| ...}
@@ -28,9 +28,8 @@ module StructuredWarnings::TestUnit::Assertions
     StructuredWarnings::with_warner(w) do
       yield
     end
-    assert_block("<#{args_inspect(args)}> has been emitted.") do
-      !w.warned?(warning, message)
-    end
+
+    assert_equal(false, w.warned?(warning, message), "<#{args_inspect(args)}> has been emitted.")
   end
 
   # :call-seq:
@@ -63,13 +62,12 @@ module StructuredWarnings::TestUnit::Assertions
   def assert_warn(*args)
     warning, message = parse_arguments(args)
 
-    w = StructuredWarnings::TestUnit::Warner.new
+    w = StructuredWarnings::Test::Warner.new
     StructuredWarnings::with_warner(w) do
       yield
     end
-    assert_block("<#{args_inspect(args)}> has not been emitted.") do
-      w.warned?(warning, message)
-    end
+
+    assert_equal(true, w.warned?(warning, message), "<#{args_inspect(args)}> has not been emitted.")
   end
 
   private

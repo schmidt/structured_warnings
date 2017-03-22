@@ -75,4 +75,5 @@ unless Dynamic.variables.key? :disabled_warnings
   StructuredWarnings::warner = StructuredWarnings::Warner.new
 end
 
+require 'structured_warnings/minitest' if defined? Minitest::Test
 require 'structured_warnings/test_unit' if defined? Test::Unit::TestCase

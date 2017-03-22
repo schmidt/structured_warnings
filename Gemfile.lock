@@ -7,7 +7,10 @@ GEM
   remote: https://rubygems.org/
   specs:
     minitest (5.10.1)
+    power_assert (1.0.1)
     rake (10.5.0)
+    test-unit (3.2.3)
+      power_assert
 
 PLATFORMS
   ruby
@@ -17,6 +20,7 @@ DEPENDENCIES
   minitest (~> 5.0)
   rake (~> 10.0)
   structured_warnings!
+  test-unit (~> 3.2)
 
 BUNDLED WITH
    1.14.6
