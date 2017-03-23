@@ -1,9 +1,5 @@
 # StructuredWarnings
 
-> **Disclaimer:** This is an experimental reimplementation of structured
-> warnings, based on Ruby 2.4's new warning module. This is not yet ready for
-> prime time.
-
 This is an implementation of Daniel Berger's [proposal of structured warnings
 for Ruby](https://web.archive.org/web/20140328021259/http://www.oreillynet.com/ruby/blog/2008/02/structured_warnings_now.html).
 They provide dynamic suppression and activation, as well as, an inheritance
