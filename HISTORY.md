@@ -1,4 +1,4 @@
-## 0.3.0 TDB
+## 0.3.0 2017-03-23
 
 * Major changes
   * Add Ruby 2.4 compatibility
