@@ -99,12 +99,14 @@ class StructuredWarningsTest < Test::Unit::TestCase
   end
 
   def test_warn_writes_to_stderr
-    old_stderr = $stderr
+    stderr = $stderr
+
     $stderr = io = ::StringIO.new
     Foo.new.method_using_structured_warning_style_api
-    $stderr = old_stderr
     io.rewind
     assert io.length > 0
+  ensure
+    $stderr = stderr
   end
 
   def test_base_is_default_warning
@@ -114,9 +116,9 @@ class StructuredWarningsTest < Test::Unit::TestCase
   end
 
   def test_builtin_warnings
-    return unless supports_core_warnings?
-
     verbose, $VERBOSE = $VERBOSE, true
+
+    return unless supports_core_warnings?
 
     assert_warn(StructuredWarnings::BuiltInWarning, /instance variable @ivar not initialized/) do
       Object.new.instance_variable_get(:@ivar)
