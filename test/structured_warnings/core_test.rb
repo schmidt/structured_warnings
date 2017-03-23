@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class StructuredWarningsTest::CoreTest < Test::Unit::TestCase
+class StructuredWarnings::CoreTest < Test::Unit::TestCase
   def test_warning_is_a_module
     assert_equal Module, Warning.class
   end

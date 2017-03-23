@@ -69,7 +69,7 @@ Pull requests which add support for `RSpec` or `minitest/spec` are very welcome.
 
 ### Known Issues
 
-In Ruby versions before 2.4, the library may not extend Ruby's internal
+In Ruby versions before 2.4, the library may not extend Ruby's built-in
 warnings handled by the C-level function `rb_warn`. Therefore warnings like
 "method redefined", "void context", and "parenthesis" may not be manipulated by
 `structured_warnings`.
@@ -157,6 +157,7 @@ Have closer look at the RDoc of `StructuredWarnings::Warning`,
 Part of this library is a set of different warnings:
 
 * `StructuredWarnings::Base`
+  * `StructuredWarnings::BuiltInWarning`
   * `StructuredWarnings::StandardWarning`
   * `StructuredWarnings::DeprecationWarning`
     * `StructuredWarnings::DeprecatedMethodWarning`

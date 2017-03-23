@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class StructuredWarningsTest::MinitestIntegrationTest < Minitest::Test
+class StructuredWarnings::MinitestTest < Minitest::Test
   def test_assert_warn
     assert_warn(StructuredWarnings::Base, 'message') do
       warn 'message'

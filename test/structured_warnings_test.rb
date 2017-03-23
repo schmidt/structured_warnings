@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'stringio'
 
 class StructuredWarningsTest < Test::Unit::TestCase
   class Foo
@@ -21,7 +22,7 @@ class StructuredWarningsTest < Test::Unit::TestCase
   end
 
   def test_fork_in_thread
-    return unless supports_fork
+    return unless supports_fork?
 
     Thread.new do
       fork do
@@ -98,7 +99,6 @@ class StructuredWarningsTest < Test::Unit::TestCase
   end
 
   def test_warn_writes_to_stderr
-    require "stringio"
     old_stderr = $stderr
     $stderr = io = ::StringIO.new
     Foo.new.method_using_structured_warning_style_api
@@ -107,10 +107,22 @@ class StructuredWarningsTest < Test::Unit::TestCase
     assert io.length > 0
   end
 
-  def test_warning_is_default_warning
+  def test_base_is_default_warning
     assert_warn(StructuredWarnings::Base) do
       warn "my warning"
     end
+  end
+
+  def test_builtin_warnings
+    return unless supports_core_warnings?
+
+    verbose, $VERBOSE = $VERBOSE, true
+
+    assert_warn(StructuredWarnings::BuiltInWarning, /instance variable @ivar not initialized/) do
+      Object.new.instance_variable_get(:@ivar)
+    end
+  ensure
+    $VERBOSE = verbose
   end
 
   def test_passing_a_warning_instance_works_as_well
@@ -178,7 +190,7 @@ class StructuredWarningsTest < Test::Unit::TestCase
 
   protected
 
-  def supports_fork
+  def supports_fork?
     return false unless Process.respond_to? :fork
     fork { Kernel.exit! }
     Process.wait
@@ -186,5 +198,9 @@ class StructuredWarningsTest < Test::Unit::TestCase
     true
   rescue NotImplementedError
     false
+  end
+
+  def supports_core_warnings?
+    Warning.instance_method(:warn).source_location.nil?
   end
 end

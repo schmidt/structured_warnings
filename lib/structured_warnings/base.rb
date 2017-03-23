@@ -126,3 +126,7 @@ class StructuredWarnings::DeprecatedMethodWarning < StructuredWarnings::Deprecat
 # deprecated. We recommend to add a useful warning message, which
 # alternative to use instead.
 class StructuredWarnings::DeprecatedSignatureWarning < StructuredWarnings::DeprecationWarning; end
+
+# This warning is used for Ruby's built in warnings about accessing unused
+# instance vars, redefining constants, etc.
+class StructuredWarnings::BuiltInWarning < StructuredWarnings::Base; end

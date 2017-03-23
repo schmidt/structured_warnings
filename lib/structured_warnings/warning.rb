@@ -47,7 +47,12 @@ module StructuredWarnings::Warning
       message = first.message
 
     else
-      warning = StructuredWarnings::StandardWarning
+      warning =
+        if caller.shift.include? 'lib/structured_warnings/kernel.rb'
+          StructuredWarnings::StandardWarning
+        else
+          StructuredWarnings::BuiltInWarning
+        end
       message = first.to_s
     end
 
