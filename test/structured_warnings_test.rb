@@ -7,6 +7,10 @@ class StructuredWarningsTest < Test::Unit::TestCase
       warn StructuredWarnings::DeprecatedMethodWarning,
            'This method is deprecated. Use new_method instead'
     end
+
+    def method_using_uplevel
+      warn "BigDecimal.new is deprecated; use BigDecimal() method instead.", uplevel: 1
+    end
   end
 
   class Bar
@@ -59,6 +63,14 @@ class StructuredWarningsTest < Test::Unit::TestCase
 
     assert_equal :deprecated,   bar.args.first
     assert_equal "explanation", bar.args.last
+  end
+
+  def test_warn_using_uplevel
+    foo = Foo.new
+
+    assert_warn(StructuredWarnings::StandardWarning) do
+      foo.method_using_uplevel
+    end
   end
 
   def test_disable_warning_blockwise
@@ -116,15 +128,13 @@ class StructuredWarningsTest < Test::Unit::TestCase
   end
 
   def test_builtin_warnings
-    verbose, $VERBOSE = $VERBOSE, true
-
     return unless supports_core_warnings?
 
-    assert_warn(StructuredWarnings::BuiltInWarning, /instance variable @ivar not initialized/) do
-      Object.new.instance_variable_get(:@ivar)
+    with_verbose_warnings do
+      assert_warn(StructuredWarnings::BuiltInWarning, /instance variable @ivar not initialized/) do
+        Object.new.instance_variable_get(:@ivar)
+      end
     end
-  ensure
-    $VERBOSE = verbose
   end
 
   def test_passing_a_warning_instance_works_as_well
@@ -190,6 +200,62 @@ class StructuredWarningsTest < Test::Unit::TestCase
     assert_equal [], StructuredWarnings::Base.enable
   end
 
+  def test_formatting_of_warn
+    actual_warning = capture_strderr do
+      warn 'do not blink'
+    end
+
+    expected_warning =
+      "#{__FILE__}:#{__LINE__ - 4}:" +
+      "in `block in test_formatting_of_warn': " +
+      "do not blink " +
+      "(StructuredWarnings::StandardWarning)\n"
+
+    assert_equal expected_warning, actual_warning
+  end
+
+  def test_formatting_of_warn_with_uplevel
+    code_emitting_warn = proc do
+      warn 'do not blink', uplevel: 1
+    end
+
+    actual_warning = capture_strderr do
+      code_emitting_warn.call
+    end
+
+    expected_warning =
+      "#{__FILE__}:#{__LINE__ - 4}:"
+
+    expected_warning +=
+      if RUBY_VERSION < '2.3'
+        "in `call': "
+      else
+        "in `block in test_formatting_of_warn_with_uplevel': "
+      end
+
+    expected_warning +=
+      "do not blink " +
+      "(StructuredWarnings::StandardWarning)\n"
+
+    assert_equal expected_warning, actual_warning
+  end
+
+  def test_formatting_of_builtin_warn
+    return unless supports_core_warnings?
+
+    actual_warning = capture_strderr do
+      Object.new.instance_variable_get(:@ivar)
+    end
+
+    expected_warning =
+      "#{__FILE__}:#{__LINE__ - 4}:" +
+      "in `instance_variable_get': " +
+      "instance variable @ivar not initialized " +
+      "(StructuredWarnings::BuiltInWarning)\n"
+
+    assert_equal expected_warning, actual_warning
+  end
+
   protected
 
   def supports_fork?
@@ -204,5 +270,26 @@ class StructuredWarningsTest < Test::Unit::TestCase
 
   def supports_core_warnings?
     Warning.instance_method(:warn).source_location.nil?
+  end
+
+  def with_verbose_warnings
+    verbose, $VERBOSE = $VERBOSE, true
+
+    yield
+  ensure
+    $VERBOSE = verbose
+  end
+
+  def capture_strderr(&block)
+    stderr = $stderr
+
+    $stderr = io = ::StringIO.new
+
+    with_verbose_warnings(&block)
+
+    io.rewind
+    io.read
+  ensure
+    $stderr = stderr
   end
 end

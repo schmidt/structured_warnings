@@ -5,7 +5,7 @@ class StructuredWarnings::Test::Warner < StructuredWarnings::Warner
   # Overrides the public interface of StructuredWarnings::Warner. This
   # method always returns nil to avoid warnings on stdout during assert_warn
   # and assert_no_warn blocks.
-  def format(warning, message, call_stack)
+  def format(warning, message, options, call_stack)
     given_warnings << warning.new(message)
     nil
   end

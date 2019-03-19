@@ -46,15 +46,16 @@ module StructuredWarnings::Warning
       warning = first.class
       message = first.message
 
-    else
-      warning =
-        if caller.shift.include? 'lib/structured_warnings/kernel.rb'
-          StructuredWarnings::StandardWarning
-        else
-          StructuredWarnings::BuiltInWarning
-        end
+    elsif caller.shift.include? 'lib/structured_warnings/kernel.rb'
+      warning = StructuredWarnings::StandardWarning
       message = first.to_s
+
+    else
+      warning = StructuredWarnings::BuiltInWarning
+      message = first.to_s.split(':', 4).last[1..-2]
     end
+
+    options = args.first.is_a?(Hash) ? args.shift : {}
 
     # If args is not empty, user passed an incompatible set of arguments.
     # Maybe somebody else is overriding warn as well and knows, what to do.
@@ -62,7 +63,7 @@ module StructuredWarnings::Warning
     return super unless args.empty?
 
     if warning.active?
-      output = StructuredWarnings.warner.format(warning, message, caller(1))
+      output = StructuredWarnings.warner.format(warning, message, options, caller(1))
       super(output) unless output.nil? or output.to_s.empty?
     end
   end
