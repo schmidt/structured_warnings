@@ -1,3 +1,12 @@
+## 0.4.0 2019-09-02
+
+* Major changes
+  * Support for uplevel parameter introduced in Ruby 2.5
+* Incompatible changes
+  * White space fixes for default warner output. If you have parsed the output
+    manually or written your own warners, you'll need to double check the
+    expected results.
+
 ## 0.3.0 2017-03-23
 
 * Major changes
