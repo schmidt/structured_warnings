@@ -131,8 +131,14 @@ class StructuredWarningsTest < Test::Unit::TestCase
     return unless supports_core_warnings?
 
     with_verbose_warnings do
-      assert_warn(StructuredWarnings::BuiltInWarning, /instance variable @ivar not initialized/) do
-        Object.new.instance_variable_get(:@ivar)
+      assert_warn(StructuredWarnings::BuiltInWarning, /method redefined; discarding old name/) do
+        class << Object.new
+          attr_accessor :name
+
+          def name
+            @name.to_s.downcase
+          end
+        end
       end
     end
   end
@@ -244,13 +250,19 @@ class StructuredWarningsTest < Test::Unit::TestCase
     return unless supports_core_warnings?
 
     actual_warning = capture_strderr do
-      Object.new.instance_variable_get(:@ivar)
+      class << Object.new
+        attr_accessor :name
+
+        def name
+          @name.to_s.downcase
+        end
+      end
     end
 
     expected_warning =
-      "#{__FILE__}:#{__LINE__ - 4}:" +
-      "in `instance_variable_get': " +
-      "instance variable @ivar not initialized " +
+      "#{__FILE__}:#{__LINE__ - 7}:" +
+      "in `singleton class': " +
+      "method redefined; discarding old name " +
       "(StructuredWarnings::BuiltInWarning)\n"
 
     assert_equal expected_warning, actual_warning
