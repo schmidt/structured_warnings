@@ -169,7 +169,7 @@ give as much feedback to your users as possible.
 * [Implementation Highlights](http://www.nach-vorne.de/2008/2/22/structured_warnings-highlights)
 * [Project's website](https://github.com/schmidt/structured_warnings/)
 * [API doc](http://rdoc.info/projects/schmidt/structured_warnings)
-* [Build status](https://travis-ci.org/schmidt/structured_warnings)
+* [Build status](https://github.com/schmidt/structured_warnings/actions)
 
 
 ## Development
