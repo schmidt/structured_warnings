@@ -144,8 +144,6 @@ class StructuredWarningsTest < Test::Unit::TestCase
   end
 
   def test_builtin_warnings
-    return unless supports_core_warnings?
-
     with_verbose_warnings do
       assert_warn(StructuredWarnings::BuiltInWarning, /method redefined; discarding old name/) do
         class << Object.new
@@ -255,8 +253,6 @@ class StructuredWarningsTest < Test::Unit::TestCase
   end
 
   def test_formatting_of_builtin_warn
-    return unless supports_core_warnings?
-
     actual_warning = capture_strderr do
       class << Object.new
         attr_accessor :name
@@ -286,10 +282,6 @@ class StructuredWarningsTest < Test::Unit::TestCase
     true
   rescue NotImplementedError
     false
-  end
-
-  def supports_core_warnings?
-    Warning.instance_method(:warn).source_location.nil?
   end
 
   def with_verbose_warnings
