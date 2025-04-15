@@ -211,11 +211,14 @@ class StructuredWarningsTest < Test::Unit::TestCase
       warn 'do not blink'
     end
 
-    expected_warning =
-      "#{__FILE__}:#{__LINE__ - 4}:" +
-      "in `block in test_formatting_of_warn': " +
-      "do not blink " +
-      "(StructuredWarnings::StandardWarning)\n"
+    expected_warning = "#{__FILE__}:#{__LINE__ - 3}:"
+    expected_warning += if RUBY_VERSION >= '3.4'
+                          "in 'block in StructuredWarningsTest#test_formatting_of_warn': "
+                        else
+                          "in `block in test_formatting_of_warn': "
+                        end
+
+    expected_warning += "do not blink (StructuredWarnings::StandardWarning)\n"
 
     assert_equal expected_warning, actual_warning
   end
@@ -235,6 +238,8 @@ class StructuredWarningsTest < Test::Unit::TestCase
     expected_warning +=
       if RUBY_VERSION < '2.3'
         "in `call': "
+      elsif RUBY_VERSION >= '3.4'
+        "in 'block in StructuredWarningsTest#test_formatting_of_warn_with_uplevel': "
       else
         "in `block in test_formatting_of_warn_with_uplevel': "
       end
@@ -259,10 +264,14 @@ class StructuredWarningsTest < Test::Unit::TestCase
       end
     end
 
-    expected_warning =
-      "#{__FILE__}:#{__LINE__ - 7}:" +
-      "in `singleton class': " +
-      "method redefined; discarding old name " +
+    expected_warning = "#{__FILE__}:#{__LINE__ - 6}:"
+    expected_warning += if RUBY_VERSION >= '3.4'
+                          "in 'singleton class': "
+                        else
+                          "in `singleton class': "
+                        end
+
+    expected_warning += "method redefined; discarding old name " +
       "(StructuredWarnings::BuiltInWarning)\n"
 
     assert_equal expected_warning, actual_warning
@@ -275,10 +284,14 @@ class StructuredWarningsTest < Test::Unit::TestCase
       Warning.warn("This is a test warning.")
     end
 
-    expected_warning =
-      "#{__FILE__}:#{__LINE__ - 4}:" +
-      "in `block in test_formatting_of_manual_warn': " +
-      "This is a test warning. " +
+    expected_warning = "#{__FILE__}:#{__LINE__ - 3}:"
+    expected_warning += if RUBY_VERSION >= '3.4'
+                          "in 'block in StructuredWarningsTest#test_formatting_of_manual_warn': "
+                        else
+                          "in `block in test_formatting_of_manual_warn': "
+                        end
+
+    expected_warning += "This is a test warning. " +
       "(StructuredWarnings::BuiltInWarning)\n"
 
     assert_equal expected_warning, actual_warning
