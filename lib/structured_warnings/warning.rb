@@ -36,7 +36,7 @@ module StructuredWarnings::Warning
   #
   #   warn StructuredWarnings::Base.new("The least specific warning you can get")
   #
-  def warn(*args)
+  def warn(*args, **options)
     first = args.shift
     if first.is_a? Class and first <= StructuredWarnings::Base
       warning = first
@@ -54,8 +54,6 @@ module StructuredWarnings::Warning
       warning = StructuredWarnings::BuiltInWarning
       message = first.to_s.split(':', 4).last[1..-2]
     end
-
-    options = args.first.is_a?(Hash) ? args.shift : {}
 
     # If args is not empty, user passed an incompatible set of arguments.
     # Maybe somebody else is overriding warn as well and knows, what to do.
