@@ -52,7 +52,7 @@ module StructuredWarnings::Warning
 
     else
       warning = StructuredWarnings::BuiltInWarning
-      message = first.to_s.split(':', 4).last[1..-2]
+      message = first.to_s.split(':', 4).last.strip
     end
 
     # If args is not empty, user passed an incompatible set of arguments.
