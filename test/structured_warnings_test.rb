@@ -25,6 +25,22 @@ class StructuredWarningsTest < Test::Unit::TestCase
     end
   end
 
+  def opening_quote
+    if RUBY_VERSION < '3.4'
+      '`'
+    else
+      "'"
+    end
+  end
+
+  def classname_in_message
+    if RUBY_VERSION < '3.4'
+      ''
+    else
+      'StructuredWarningsTest#'
+    end
+  end
+
   def test_fork_in_thread
     return unless supports_fork?
 
@@ -213,7 +229,7 @@ class StructuredWarningsTest < Test::Unit::TestCase
 
     expected_warning =
       "#{__FILE__}:#{__LINE__ - 4}:" +
-      "in 'block in StructuredWarningsTest#test_formatting_of_warn': " +
+      "in #{opening_quote}block in #{classname_in_message}test_formatting_of_warn': " +
       "do not blink " +
       "(StructuredWarnings::StandardWarning)\n"
 
@@ -236,7 +252,7 @@ class StructuredWarningsTest < Test::Unit::TestCase
       if RUBY_VERSION < '2.3'
         "in `call': "
       else
-        "in 'block in StructuredWarningsTest#test_formatting_of_warn_with_uplevel': "
+        "in #{opening_quote}block in #{classname_in_message}test_formatting_of_warn_with_uplevel': "
       end
 
     expected_warning +=
@@ -261,7 +277,7 @@ class StructuredWarningsTest < Test::Unit::TestCase
 
     expected_warning =
       "#{__FILE__}:#{__LINE__ - 7}:" +
-      "in 'singleton class': " +
+      "in #{opening_quote}singleton class': " +
       "method redefined; discarding old name " +
       "(StructuredWarnings::BuiltInWarning)\n"
 
