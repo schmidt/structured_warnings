@@ -272,6 +272,20 @@ class StructuredWarningsTest < Test::Unit::TestCase
     assert_equal expected_warning, actual_warning
   end
 
+  def test_formatting_of_manual_warn
+    actual_warning = capture_strderr do
+      Warning.warn("This is a test warning.")
+    end
+
+    expected_warning =
+      "#{__FILE__}:#{__LINE__ - 4}:" +
+      "in #{opening_quote}block in #{classname_in_message}test_formatting_of_manual_warn': " +
+      "This is a test warning. " +
+      "(StructuredWarnings::BuiltInWarning)\n"
+
+    assert_equal expected_warning, actual_warning
+  end
+
   protected
 
   def supports_fork?
