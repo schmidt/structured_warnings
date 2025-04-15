@@ -33,24 +33,9 @@ Or install it yourself as:
 
 ## Compatibility
 
-`structured_warnings` aims to work with all Ruby interpreters. Please file a bug
-for any incompatibilities.
-
-
-Versions of `structured_warnings` before `v0.3.0` are incompatible with Ruby
-2.4+. Please upgrade accordingly, if you need Ruby 2.4 compatibility. Please
-note on the otherhand, that many class names changed in an incompatible way
-with `structured_warnings` `v0.3.0`. This was done to avoid future name clashes.
-
-Here's a table which should ease upgrading.
-
-| v0.2.0 and before            | v0.3.0 and after                                 |
-|------------------------------|--------------------------------------------------|
-| `Warning`                    | `StructuredWarnings::Base`                       |
-| `StandardWarning`            | `StructuredWarnings::StandardWarning`            |
-| `DeprecationWarning`         | `StructuredWarnings::DeprecationWarning`         |
-| `DeprecatedMethodWarning`    | `StructuredWarnings::DeprecatedMethodWarning`    |
-| `DeprecatedSignatureWarning` | `StructuredWarnings::DeprecatedSignatureWarning` |
+`structured_warnings` aims to work with all stable, maintained Ruby versions. At
+the time of this writing this is Ruby 3.2, 3.3, and 3.4. Please file a bug for
+any incompatibilities.
 
 
 ### Test framework support
