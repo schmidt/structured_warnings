@@ -246,16 +246,8 @@ class StructuredWarningsTest < Test::Unit::TestCase
     end
 
     expected_warning =
-      "#{__FILE__}:#{__LINE__ - 4}:"
-
-    expected_warning +=
-      if RUBY_VERSION < '2.3'
-        "in `call': "
-      else
-        "in #{opening_quote}block in #{classname_in_message}test_formatting_of_warn_with_uplevel': "
-      end
-
-    expected_warning +=
+      "#{__FILE__}:#{__LINE__ - 4}:" +
+      "in #{opening_quote}block in #{classname_in_message}test_formatting_of_warn_with_uplevel': " +
       "do not blink " +
       "(StructuredWarnings::StandardWarning)\n"
 
