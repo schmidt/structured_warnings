@@ -1,8 +1,5 @@
 require 'structured_warnings/version'
 
-# Compatibility layer
-require 'warning' unless defined? ::Warning
-
 require 'dynamic'
 
 module StructuredWarnings
