@@ -25,6 +25,22 @@ class StructuredWarningsTest < Test::Unit::TestCase
     end
   end
 
+  def opening_quote
+    if RUBY_VERSION < '3.4'
+      '`'
+    else
+      "'"
+    end
+  end
+
+  def classname_in_message
+    if RUBY_VERSION < '3.4'
+      ''
+    else
+      'StructuredWarningsTest#'
+    end
+  end
+
   def test_fork_in_thread
     return unless supports_fork?
 
@@ -128,8 +144,6 @@ class StructuredWarningsTest < Test::Unit::TestCase
   end
 
   def test_builtin_warnings
-    return unless supports_core_warnings?
-
     with_verbose_warnings do
       assert_warn(StructuredWarnings::BuiltInWarning, /method redefined; discarding old name/) do
         class << Object.new
@@ -213,7 +227,7 @@ class StructuredWarningsTest < Test::Unit::TestCase
 
     expected_warning =
       "#{__FILE__}:#{__LINE__ - 4}:" +
-      "in `block in test_formatting_of_warn': " +
+      "in #{opening_quote}block in #{classname_in_message}test_formatting_of_warn': " +
       "do not blink " +
       "(StructuredWarnings::StandardWarning)\n"
 
@@ -230,16 +244,8 @@ class StructuredWarningsTest < Test::Unit::TestCase
     end
 
     expected_warning =
-      "#{__FILE__}:#{__LINE__ - 4}:"
-
-    expected_warning +=
-      if RUBY_VERSION < '2.3'
-        "in `call': "
-      else
-        "in `block in test_formatting_of_warn_with_uplevel': "
-      end
-
-    expected_warning +=
+      "#{__FILE__}:#{__LINE__ - 4}:" +
+      "in #{opening_quote}block in #{classname_in_message}test_formatting_of_warn_with_uplevel': " +
       "do not blink " +
       "(StructuredWarnings::StandardWarning)\n"
 
@@ -247,8 +253,6 @@ class StructuredWarningsTest < Test::Unit::TestCase
   end
 
   def test_formatting_of_builtin_warn
-    return unless supports_core_warnings?
-
     actual_warning = capture_strderr do
       class << Object.new
         attr_accessor :name
@@ -261,8 +265,22 @@ class StructuredWarningsTest < Test::Unit::TestCase
 
     expected_warning =
       "#{__FILE__}:#{__LINE__ - 7}:" +
-      "in `singleton class': " +
+      "in #{opening_quote}singleton class': " +
       "method redefined; discarding old name " +
+      "(StructuredWarnings::BuiltInWarning)\n"
+
+    assert_equal expected_warning, actual_warning
+  end
+
+  def test_formatting_of_manual_warn
+    actual_warning = capture_strderr do
+      Warning.warn("This is a test warning.")
+    end
+
+    expected_warning =
+      "#{__FILE__}:#{__LINE__ - 4}:" +
+      "in #{opening_quote}block in #{classname_in_message}test_formatting_of_manual_warn': " +
+      "This is a test warning. " +
       "(StructuredWarnings::BuiltInWarning)\n"
 
     assert_equal expected_warning, actual_warning
@@ -278,10 +296,6 @@ class StructuredWarningsTest < Test::Unit::TestCase
     true
   rescue NotImplementedError
     false
-  end
-
-  def supports_core_warnings?
-    Warning.instance_method(:warn).source_location.nil?
   end
 
   def with_verbose_warnings

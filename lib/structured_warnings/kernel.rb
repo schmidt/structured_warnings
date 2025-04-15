@@ -1,6 +1,6 @@
 module StructuredWarnings::Kernel
-  def warn(*args)
-    Warning.warn(*args)
+  def warn(*args, **opts)
+    Warning.warn(*args, **opts)
   end
 end
 
